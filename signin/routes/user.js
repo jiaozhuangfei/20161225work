@@ -1,5 +1,7 @@
 var express = require('express'),
     router = express.Router(),
+    fs = require('fs'),
+    path = require('path'),
     session = require('express-session'),
     users = [];
 router.use(session({
@@ -19,14 +21,21 @@ router.post('/signup', function (req, res) {
     req.session.errorIn = req.session.successIn = '';
     req.session.errorUp = req.session.successUp = '';
     var user = req.body;
-    var flag = users.find(function (item) {
+    var data = fs.readFileSync(__dirname + '/data.json', 'utf8');
+    try {
+        data = JSON.parse(data);
+    }catch (e){
+        data = [];
+    }
+    var flag = data.find(function (item) {
         return (item.username == user.username)
     });
     if (flag) {
         req.session.errorUp = '账号已存在，请重新输入';
     }else {
         req.session.successUp = '注册成功';
-        users.push(user);
+        data.push(user);
+        fs.writeFileSync(__dirname + '/data.json', JSON.stringify(data) ,'utf8')
     }
     res.redirect('/user/signup');
 });
@@ -41,7 +50,13 @@ router.get('/signin', function (req, res) {
 router.post('/signin', function (req, res) {
     req.session.errorUp = req.session.successUp = '';
     var user = req.body;
-    var existUser = users.find(function (item) {
+    var data = fs.readFileSync(__dirname + '/data.json', 'utf8');
+    try {
+        data = JSON.parse(data);
+    }catch (e){
+        data = [];
+    }
+    var existUser = data.find(function (item) {
         return (user.username == item.username && user.password == item.password);
     });
     if (existUser) {
@@ -54,6 +69,8 @@ router.post('/signin', function (req, res) {
     }
 });
 router.get('/welcome', function (req, res) {
+    req.session.errorIn = req.session.successIn = '';
+    req.session.errorUp = req.session.successUp = '';
     res.render('welcome', {
         title: '欢迎页',
         username: req.session.username
