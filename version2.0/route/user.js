@@ -31,6 +31,7 @@ route.post('', function (req, res) {
         if(req.body.flag){
             res.cookie('name', target.username);
         }
+        res.cookie('nameValue', target.username);
         //res.redirect('/home');
     }else {
         req.session.loginError = '用户名或密码不正确，请重新输入';
@@ -68,7 +69,7 @@ route.get('/home', function (req, res) {
     req.session.loginSuccess = req.session.loginError = '';
     res.render('home.html', {
         title: 'Home',
-        name: req.cookies.name
-    })
+        name: req.cookies.nameValue
+    });
 });
 module.exports = route;
