@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%=title%></title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="control-label text-info">登录页面</h1>
+    <form class="form-horizontal" role="form" method="post">
+        <div class="form-group">
+            <label for="inputEmail3" class="col-lg-2 control-label">用户名</label>
+            <div class="col-lg-4">
+                <input type="text" class="form-control" id="inputEmail3" placeholder="用户名" name="username">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword3" class="col-lg-2 control-label">密码</label>
+            <div class="col-lg-4">
+                <input type="password" class="form-control" id="inputPassword3" placeholder="密码" name="password">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-4">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="flag"> 记住密码
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+                <button type="submit" class="btn btn-primary">登录</button>
+            </div>
+        </div>
+        <%if(loginSuccess){%>
+        <div class="alert alert-success" role="alert" id="loginSuccess"><%=loginSuccess%></div>
+        <%}else if(loginError){%>
+        <div class="alert alert-danger" role="alert"><%=loginError%> <a href="/reg">点击注册</a></div>
+        <%}%>
+    </form>
+</div>
+<script>
+    window.onload = function () {
+        var a = document.getElementById('loginSuccess'),
+            input1 = document.getElementById('inputEmail3');
+
+        function getCookie(target) {
+            var result = document.cookie.match(new RegExp('(; |^)' + target + '=' + '(\\w+)(; |$)'));
+            return result ? result[2] : '';
+        }
+        if (a) {
+            a.innerHTML = "登录中...";
+            setTimeout(function () {
+                window.open('/home', '_self');
+            }, 2000);
+        }else
+        {
+            input1.value = getCookie('name');
+        }
+    }
+</script>
+</body>
+</html>

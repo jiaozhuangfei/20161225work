@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%=title%></title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="control-label text-info">注册页面</h1>
+    <form class="form-horizontal" role="form" method="post">
+        <div class="form-group">
+            <label for="inputEmail3" class="col-lg-2 control-label">用户名</label>
+            <div class="col-lg-4">
+                <input type="text" class="form-control" id="inputEmail3" placeholder="用户名" name="username">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword3" class="col-lg-2 control-label">密码</label>
+            <div class="col-lg-4">
+                <input type="password" class="form-control" id="inputPassword3" placeholder="密码" name="password">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+                <button type="submit" class="btn btn-primary">注册</button>
+                <a href="/" class="btn btn-success">返回</a>
+            </div>
+        </div>
+        <%if(regSuccess){%>
+            <div class="alert alert-success" role="alert" id="regSuccess"><%=regSuccess%></div>
+        <%}else if(regError){%>
+            <div class="alert alert-danger" role="alert"><%=regError%></div>
+        <%}%>
+    </form>
+</div>
+<script>
+    window.onload = function () {
+        var a = document.getElementById('regSuccess');
+        if(a){
+            a.innerHTML = '注册成功，正在跳转...';
+            setTimeout(function () {
+                window.open('../', '_self');
+                setTimeout(function () {
+                    a.innerHTML = '跳转失败，请<a href="../">点击跳转</a>';
+                }, 500);
+            }, 2000);
+        }
+    };
+</script>
+</body>
+</html>
