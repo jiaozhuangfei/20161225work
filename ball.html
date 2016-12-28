@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ball</title>
+    <style>
+        .ball{width: 100px; height: 100px; border-radius: 50%;}
+        .ball:nth-child(even){background-color: lightblue;}
+        .ball:nth-child(odd){background-color: lightgreen;}
+    </style>
+</head>
+<body>
+<div id="ball1" class="ball" style="margin-left: 0;"></div>
+<div id="ball2" class="ball" style="margin-left: 0;"></div>
+<div id="ball3" class="ball" style="margin-left: 0;"></div>
+<div id="ball4" class="ball" style="margin-left: 0;"></div>
+<div id="ball5" class="ball" style="margin-left: 0;"></div>
+<div id="ball6" class="ball" style="margin-left: 0;"></div>
+<script>
+    /*function move(ele, target, callback) {
+        setTimeout(function () {
+            var marginLeft = parseInt(ele.style.marginLeft);
+            if(marginLeft < target){
+                marginLeft++;
+                ele.style.marginLeft = marginLeft + 'px';
+                move(ele, target, callback);
+            }else {
+                callback & callback();
+            }
+        }, 13);
+    }
+    move(ball1, 100, function () {
+        move(ball2, 100, function () {
+            move(ball3, 100);
+        })
+    });*/
+    var promiseMove = function (ele, target) {
+        return new Promise(function (resolve, reject) {
+            var timer = setInterval(function () {
+                var val = parseInt(ele.style.marginLeft);
+                if(val >= target){
+                    clearInterval(timer);
+                    resolve('ok');
+                }else {
+                    ele.style.marginLeft = ++val + 'px';
+                }
+            }, 1);
+        })
+    };
+    var balls = document.getElementsByClassName('ball');
+    promiseMove(balls[0], 100).then(
+        function (data) {
+            return promiseMove(balls[1], 100);
+        }
+    ).then(
+        function (data) {
+            return promiseMove(balls[2], 100);
+        }
+    )
+</script>
+</body>
+</html>
