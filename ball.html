@@ -61,7 +61,6 @@
     function allMove(arr, target) {
         promiseMove(arr[index], 100).then(
             function (data) {
-                console.log(1);
                 index++;
                 if(index < arr.length){
                     allMove(arr, target);
