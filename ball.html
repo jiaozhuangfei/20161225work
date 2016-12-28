@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Ball</title>
     <style>
-        .ball{width: 100px; height: 100px; border-radius: 50%;}
+        .ball{width: 100px; height: 100px; border-radius: 50%; margin-bottom: 10px;}
         .ball:nth-child(even){background-color: lightblue;}
         .ball:nth-child(odd){background-color: lightgreen;}
     </style>
@@ -47,8 +47,9 @@
             }, 1);
         })
     };
-    var balls = document.getElementsByClassName('ball');
-    promiseMove(balls[0], 100).then(
+    var balls = document.getElementsByClassName('ball'),
+        index = 0;
+    /*promiseMove(balls[0], 100).then(
         function (data) {
             return promiseMove(balls[1], 100);
         }
@@ -56,7 +57,19 @@
         function (data) {
             return promiseMove(balls[2], 100);
         }
-    )
+    );*/
+    function allMove(arr, target) {
+        promiseMove(arr[index], 100).then(
+            function (data) {
+                console.log(1);
+                index++;
+                if(index < arr.length){
+                    allMove(arr, target);
+                }
+            }
+        )
+    }
+    allMove(balls, 100);
 </script>
 </body>
 </html>
