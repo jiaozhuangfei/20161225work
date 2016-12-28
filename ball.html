@@ -10,12 +10,12 @@
     </style>
 </head>
 <body>
-<div id="ball1" class="ball" style="margin-left: 0;"></div>
-<div id="ball2" class="ball" style="margin-left: 0;"></div>
-<div id="ball3" class="ball" style="margin-left: 0;"></div>
-<div id="ball4" class="ball" style="margin-left: 0;"></div>
-<div id="ball5" class="ball" style="margin-left: 0;"></div>
-<div id="ball6" class="ball" style="margin-left: 0;"></div>
+<div class="ball" style="margin-left: 0;"></div>
+<div class="ball" style="margin-left: 0;"></div>
+<div class="ball" style="margin-left: 0;"></div>
+<div class="ball" style="margin-left: 0;"></div>
+<div class="ball" style="margin-left: 0;"></div>
+<div class="ball" style="margin-left: 0;"></div>
 <script>
     /*function move(ele, target, callback) {
         setTimeout(function () {
@@ -59,7 +59,7 @@
         }
     );*/
     function allMove(arr, target) {
-        promiseMove(arr[index], 100).then(
+        promiseMove(arr[index], target).then(
             function (data) {
                 index++;
                 if(index < arr.length){
