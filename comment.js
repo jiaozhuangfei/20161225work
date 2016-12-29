@@ -5,7 +5,7 @@ let Board = React.createClass({
     handleClick(event){
         this.state.lis.push(this.refs.input.value);
         this.refs.input.value = '';
-        this.setState();
+        this.setState({});
     },
      render(){
          return (
